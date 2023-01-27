@@ -14,7 +14,8 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Scripts -->
-    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+
+    @vite(['resources/sass/app.scss'])
 </head>
 <body>
     <div id="app">
@@ -53,8 +54,9 @@
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }}
                                 </a>
-
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="/users">Users</a>
+                                    <a class="dropdown-item" href="{{ route('products.index')}}">Products</a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
@@ -76,5 +78,7 @@
             @yield('content')
         </main>
     </div>
+    @vite(['resources/js/app.js'])
+    @vite(['resources/js/sweetAlert.js'])
 </body>
 </html>
