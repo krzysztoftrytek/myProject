@@ -8,7 +8,7 @@
                     <div class="card-header">Add Product</div>
 
                     <div class="card-body">
-                        <form method="POST" action="{{ route('products.store') }}">
+                        <form method="POST" action="{{ route('products.store') }}" enctype="multipart/form-data">
                             @csrf
                             <div class="row mb-3">
                                 <label for="name" class="col-md-4 col-form-label text-md-end">Name</label>
@@ -72,6 +72,17 @@
                                 </div>
                             </div>
 
+                            <div class="row mb-3">
+                                <label for="image" class="col-md-4 col-form-label text-md-end">Photo</label>
+                                <div class="col-md-6">
+                                    <img class="img_show_edit m-2" id="output">
+                                    <input id="image"
+                                           type="file"
+                                           class="form-control"
+                                           name="image"
+                                           onchange="loadFile(event)">
+                                </div>
+                            </div>
 
                             <div class="row mb-0">
                                 <div class="col-md-6 offset-md-4">
@@ -87,3 +98,12 @@
         </div>
     </div>
 @endsection
+
+<script>
+
+    let loadFile = function (event) {
+        let output = document.getElementById("output");
+        output.src = URL.createObjectURL(event.target.files[0]);
+        console.log(output);
+    }
+</script>

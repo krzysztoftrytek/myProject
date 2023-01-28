@@ -79,6 +79,5 @@
         </main>
     </div>
     @vite(['resources/js/app.js'])
-    @vite(['resources/js/sweetAlert.js'])
 </body>
 </html>

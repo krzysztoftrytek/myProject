@@ -2,6 +2,7 @@
 
 @section('content')
     <div class="container">
+        <a class="btn btn-primary" href="{{ route('products.index')}}"> < BACK</a>
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
@@ -38,6 +39,17 @@
                                        class="form-control" name="amount"
                                        value="{{ $product->amount }}" disabled>
                             </div>
+                        </div>
+
+                        <div class="row justify-content-center m-4">
+                            <h2 class="text-xl-center">Actual Photo:</h2>
+                            @if(!is_null($product->image_path))
+                                <img src="{{ asset('storage/' . $product->image_path) }}"
+                                     class="img_show_edit" alt="product photo">
+                            @else
+                                <img src="{{ asset('storage/products/default_image.png')}}"
+                                     class="img_show_edit" alt="product photo">
+                            @endif
                         </div>
 
                         <div class="row mb-3">

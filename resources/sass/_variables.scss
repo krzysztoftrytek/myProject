@@ -5,3 +5,14 @@ $body-bg: #f8fafc;
 $font-family-sans-serif: 'Nunito', sans-serif;
 $font-size-base: 0.9rem;
 $line-height-base: 1.6;
+
+.img_show_table{
+    height: 100px;
+    object-fit: cover;
+}
+
+.img_show_edit{
+    max-height: 250px;
+    max-width: 400px;
+    object-fit: contain;
+}

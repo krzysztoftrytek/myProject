@@ -8,7 +8,7 @@
                 <div class="card">
                     <div class="card-header">Edit Product</div>
                     <div class="card-body">
-                        <form method="POST" action="{{ route('products.update', $product->id) }}">
+                        <form method="POST" action="{{ route('products.update', $product->id) }}" enctype="multipart/form-data">
                             @csrf
 
                             <div class="row mb-3">
@@ -73,11 +73,31 @@
                                 </div>
                             </div>
 
+                            <div class="row mb-3">
+                                <label for="image" class="col-md-4 col-form-label text-md-end">Photo</label>
+                                <div class="col-md-6">
+                                    <input id="image"
+                                           type="file"
+                                           class="form-control"
+                                           name="image">
+                                </div>
+                            </div>
 
-                            <div class="row mb-0">
+                            <div class="row justify-content-center m-4">
+                                <h2 class="text-xl-center">Actual Photo:</h2>
+                                @if(!is_null($product->image_path))
+                                    <img src="{{ asset('storage/' . $product->image_path) }}"
+                                         class="img_show_edit" alt="product photo">
+                                @else
+                                    <img src="{{ asset('storage/products/default_image.png')}}"
+                                         class="img_show_edit" alt="product photo">
+                                @endif
+                            </div>
+
+                            <div class="row mb-0 justify-content-center">
                                 <div class="col-md-6 offset-md-4">
                                     <button type="submit" class="btn btn-primary">
-                                        {{ __('Add') }}
+                                        {{ __('Change') }}
                                     </button>
                                 </div>
                             </div>
