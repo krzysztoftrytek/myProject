@@ -50,6 +50,7 @@
                     <td>{{$product->amount}}</td>
                     <td>{{$product->price}}</td>
                     <td>{{$product->created_at}}</td>
+                    <td>@if(!is_null($product->category)){{$product->category->name}}@endif</td>
                     <td>
                         <form class="col-md-8" method="post"
                               action="{{ route('products.destroyPermanently', $product->id)}}">

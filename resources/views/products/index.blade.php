@@ -36,6 +36,7 @@
                 <th scope="col">Amount</th>
                 <th scope="col">Cost</th>
                 <th scope="col">Created at</th>
+                <th scope="col">Category</th>
                 <th scope="col">Photo</th>
                 <th scope="col">Actions</th>
             </tr>
@@ -49,6 +50,9 @@
                     <td>{{$product->amount}}</td>
                     <td>{{$product->price}}</td>
                     <td>{{$product->created_at}}</td>
+                    <td>@if(!is_null($product->category)){{$product->category->name}}
+                        @else No Category
+                        @endif</td>
                     <td>
                         @if(!is_null($product->image_path))
                         <img class="img_show_table"
@@ -59,7 +63,7 @@
                         @endif
                     </td>
                     <td>
-                        <form class="col-md-8" method="post" action="{{ route('products.destroy', $product->id)}}">
+                        <form class="col-md-8 formWrapper" method="post" action="{{ route('products.destroy', $product->id)}}">
                             @csrf
                             @method('DELETE')
                             <a class="btn btn-info btn-sm" href="{{ route('products.show',$product->id) }}">

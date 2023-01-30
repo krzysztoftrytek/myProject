@@ -8,7 +8,8 @@
                 <div class="card">
                     <div class="card-header">Edit Product</div>
                     <div class="card-body">
-                        <form method="POST" action="{{ route('products.update', $product->id) }}" enctype="multipart/form-data">
+                        <form method="POST" action="{{ route('products.update', $product->id) }}"
+                              enctype="multipart/form-data">
                             @csrf
 
                             <div class="row mb-3">
@@ -79,18 +80,44 @@
                                     <input id="image"
                                            type="file"
                                            class="form-control"
-                                           name="image">
+                                           name="image"
+                                           onchange="loadFile(event)">
                                 </div>
                             </div>
+
+                            <div class="row mb-3">
+                                <label for="category"
+                                       class="col-md-4 col-form-label text-md-end">{{ __('Category') }}</label>
+                                <div class="col-md-6">
+                                    <select id="category"
+                                            class="form-control @error('category_id') is-invalid @enderror"
+                                            name="category_id">
+                                        <option value="">No category</option>
+                                        @foreach($categories as $category)
+                                            <option
+                                                value="{{ $category->id }}"
+                                                @if($product->isSelectedCategory($category->id)) selected @endif>
+                                                {{ $category->name}}</option>
+                                        @endforeach
+                                    </select>
+
+                                    @error('category_id')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                </div>
+                            </div>
+
 
                             <div class="row justify-content-center m-4">
                                 <h2 class="text-xl-center">Actual Photo:</h2>
                                 @if(!is_null($product->image_path))
                                     <img src="{{ asset('storage/' . $product->image_path) }}"
-                                         class="img_show_edit" alt="product photo">
+                                         class="img_show_edit" alt="product photo"
                                 @else
                                     <img src="{{ asset('storage/products/default_image.png')}}"
-                                         class="img_show_edit" alt="product photo">
+                                         class="img_show_edit" alt="product photo"
                                 @endif
                             </div>
 
@@ -108,3 +135,11 @@
         </div>
     </div>
 @endsection
+
+<script>
+    let loadFile = function (event) {
+        let output = document.getElementById("output");
+        output.src = URL.createObjectURL(event.target.files[0]);
+        console.log(output);
+    }
+</script>

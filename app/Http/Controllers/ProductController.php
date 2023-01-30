@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreProductRequest;
 use App\Models\Product;
+use App\Models\ProductCategory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use mysql_xdevapi\Exception;
@@ -45,7 +47,9 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('products.create');
+        return view('products.create',[
+            'categories' => ProductCategory::all()
+        ]);
     }
 
     /**
@@ -54,9 +58,9 @@ class ProductController extends Controller
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function store(Request $request)
+    public function store(StoreProductRequest $request)
     {
-        $product = new Product($request->all());
+        $product = new Product($request->validated());
         if ($request->hasFile('image')) {
             $product->image_path = $request->file('image')->store('products');
         }        $product->save();
@@ -73,6 +77,7 @@ class ProductController extends Controller
     {
         return view('products.show', [
             'product' => $product,
+            'categories' => ProductCategory::all()
         ]);
     }
 
@@ -85,7 +90,8 @@ class ProductController extends Controller
     public function edit(Product $product)
     {
         return view('products.edit', [
-            'product' => $product
+            'product' => $product,
+            'categories' => ProductCategory::all(),
         ]);
     }
 
@@ -96,9 +102,9 @@ class ProductController extends Controller
      * @param \App\Models\Product $product
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function update(Request $request, Product $product)
+    public function update(StoreProductRequest $request, Product $product)
     {
-        $product->fill($request->all());
+        $product->fill($request->validated());
         if ($request->hasFile('image')) {
             $product->image_path = $request->file('image')->store('products');
         }

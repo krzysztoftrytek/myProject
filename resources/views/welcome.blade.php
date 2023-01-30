@@ -44,7 +44,7 @@
                         @foreach($products as $product)
                             <div class="col-6 col-md-6 col-lg-4 mb-3">
                                 <div class="card h-100 border-0">
-                                    <div class="card-img-top">
+                                    <div class="card-img-top imgProduct">
                                         @if(!is_null($product->image_path))
                                             <img src="{{ asset('storage/' . $product->image_path) }}"
                                                  class="img-fluid mx-auto d-block" alt="Card image cap">
